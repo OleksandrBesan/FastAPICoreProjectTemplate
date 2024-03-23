@@ -1,0 +1,80 @@
+# Compiled python files
+*.pyc
+__pycache__/
+
+# Compiled C extensions
+*.so
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# pickle files 
+data/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.pyc
+*.bak
+*.swp
+*.tmp
+*.temp
+ 
+# Exclude sensitive files
+.env
+.env.*
+*.env
+
+# Local Pyenv files
+.python-version
+
+#
+.DS_Store
+
+# logs files 
+.log
+*.log
+
+
+# poetry
+poetry.lock
+ 
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+
+# Exclude all .tfvars files, which might contain sensitive data, such as
+# password, private keys, and other secrets. These should not be part of version control
+# as they can pose a security risk.
+*.tfvars
+*.tfvars.json
+
+# Ignore override files as they are usually used to override resources locally and are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# Ignore any .env or .dotenv files that might contain environment-specific secrets
+.env
+.env.*
+ 
