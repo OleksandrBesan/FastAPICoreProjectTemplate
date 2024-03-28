@@ -1,4 +1,5 @@
-from pydantic import BaseModel 
+from pydantic import BaseModel
+
 
 class ErrorResponseModel(BaseModel):
     error_code: int

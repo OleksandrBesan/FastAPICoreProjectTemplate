@@ -7,22 +7,17 @@ from loguru import logger
 import functools
 import traceback
 from timeit import default_timer as timer
-from datetime import timedelta   
+from datetime import timedelta
 from contextlib import ContextDecorator
 
+
 class InterceptHandler(logging.Handler):
-    def emit(self, record: logging.LogRecord) -> None: 
-        try:
-            level = logger.level(record.levelname).name
-        except ValueError:
-            level = str(record.levelno)
- 
+    def emit(self, record: logging.LogRecord) -> None:
         frame, depth = logging.currentframe(), 2
-        while frame.f_code.co_filename == logging.__file__:  
+        while frame.f_code.co_filename == logging.__file__:
             frame = cast(FrameType, frame.f_back)
             depth += 1
-  
- 
+
 
 def logcontext(**context_vars):
     """
@@ -55,31 +50,44 @@ def logcontext(**context_vars):
             return sync_wrapper
     return decorator
 
+
 def logtimer(tag="performance"):
     """
-    decorator to log performance of the call func with contextualize with provided requestPath, requestId on the self of the method (if decorator on the class)
+    decorator to log performance of the call func with contextualize
+    Provided requestPath, requestId on the self of the method
+    (if decorator on the class)
     """
     def decorator(func):
         @functools.wraps(func)
         def sync_wrapper(*args, **kwargs):
             requestId = getattr(args[0], 'requestId', '')
             requestPath = getattr(args[0], 'requestPath', '')
-            decorator_logger = logger.bind(requestId=requestId, path=requestPath, tag=tag)
+            decorator_logger = logger.bind(
+                requestId=requestId,
+                path=requestPath,
+                tag=tag
+            )
             start = timer()
             result = func(*args, **kwargs)
             end = timer()
-            decorator_logger.info(f"Execution time: {timedelta(seconds=end-start)}")
+            logtext = f"Execution time: {timedelta(seconds=end-start)}"
+            decorator_logger.info(logtext)
             return result
 
         @functools.wraps(func)
         async def async_wrapper(*args, **kwargs):
             requestId = getattr(args[0], 'requestId', '')
             requestPath = getattr(args[0], 'requestPath', '')
-            decorator_logger = logger.bind(requestId=requestId, path=requestPath, tag=tag)
+            decorator_logger = logger.bind(
+                requestId=requestId,
+                path=requestPath,
+                tag=tag
+            )
             start = timer()
             result = await func(*args, **kwargs)
-            end = timer() 
-            decorator_logger.info(f"Execution time: {timedelta(seconds=end-start)}")
+            end = timer()
+            logtext = f"Execution time: {timedelta(seconds=end-start)}"
+            decorator_logger.info(logtext)
             return result
 
         if asyncio.iscoroutinefunction(func):
@@ -96,16 +104,16 @@ class LogTimerContext(ContextDecorator):
     Accept logger, with necessary binding
     """
     def __init__(self, logger):
-        self.logger = logger 
+        self.logger = logger
         self.start_time = None
 
-    def __enter__(self): 
-        self.start_time = timer() 
+    def __enter__(self):
+        self.start_time = timer()
         return self
 
-    def __exit__(self, *exc): 
-        end_time = timer() 
+    def __exit__(self, *exc):
+        end_time = timer()
         start_time = self.start_time
-        elapsed_time = timedelta(seconds=end_time-start_time) 
+        elapsed_time = timedelta(seconds=end_time - start_time)
         self.logger.info(f"Execution time: {elapsed_time}")
         return False

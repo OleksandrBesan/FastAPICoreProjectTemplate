@@ -33,6 +33,10 @@ data/
 .env.*
 *.env
 
+#VS code workspace
+.code-workspace
+*.code-workspace
+
 # Local Pyenv files
 .python-version
 
