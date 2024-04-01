@@ -31,8 +31,8 @@ class LoggingRoute(APIRoute):
             elif {"*", path} & set(restrictRoutes):
                 try:
                     request_text = req_body.decode('utf-8')
-                    request_headers = json.loads(request_text)
-                    filtered_request = {key: (value if key not in maskKeys else "****") for key, value in request_headers.items() if key not in filterKeys}
+                    request_dict = json.loads(request_text)
+                    filtered_request = {key: (value if key not in maskKeys else "****") for key, value in request_dict.items() if key not in filterKeys}
                     route_logger.bind(tag="RequestFiltered").info(filtered_request)
                 except Exception as e:
                     logger.error(e)
@@ -44,7 +44,7 @@ class LoggingRoute(APIRoute):
             self.requestId = requestId
             self.requestPath = path
             route_logger = route_logger.bind(requestId=requestId, path=path, tag="RequestHeaders")
-            request_headers_json = {key: value for key, value in request.headers.items() if key in logging_request_headers or "*" in logging_response_filter}
+            request_headers_json = {key: value for key, value in request.headers.items() if key in logging_request_headers or "*" in logging_request_headers}
             route_logger.info(json.dumps(request_headers_json))
 
             req_body = await request.body()

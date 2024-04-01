@@ -11,7 +11,7 @@ import os
 class LoggingRequestRestrictRoutesWithKeys(NamedTuple):
     routes: List[str] = ['*']
     filter_keys: List[str] = ['*']
-    mask_keys: List[str] = ['host']
+    mask_keys: List[str] = ['*']
 
 
 class AppSettings(BaseAppSettings):
