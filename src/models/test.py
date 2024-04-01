@@ -7,3 +7,10 @@ class SomeRequestModel(BaseModel):
     """
     text: str
     id: int
+
+
+class SomeResponseModel(BaseModel):
+    """
+    Response model with some result
+    """
+    result: bool

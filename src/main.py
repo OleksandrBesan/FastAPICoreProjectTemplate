@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from loguru import logger
 from uuid import uuid4
 from asgi_correlation_id import CorrelationIdMiddleware
+from core.exceptions.handlers import errorHandlers
 
 
 def get_application() -> FastAPI:
@@ -39,6 +40,9 @@ def get_application() -> FastAPI:
 
 
 app = get_application()
+
+for err, handler in errorHandlers:
+    app.add_exception_handler(err, handler)
 
 if __name__ == "__main__":
     import uvicorn
