@@ -2,6 +2,7 @@ from fastapi import HTTPException
 from fastapi.responses import JSONResponse
 from fastapi import status as statuscode
 from models.errors.base import BaseError
+from typing import Union
 
 
 class BaseHTTPException(HTTPException):
@@ -24,7 +25,7 @@ class BaseHTTPException(HTTPException):
     def __str__(self):
         return self.message
 
-    def response(self, requestId: str):
+    def response(self, requestId: Union[str, None]):
         self.data.requestId = requestId
         return JSONResponse(
             content=self.data.dict(),
