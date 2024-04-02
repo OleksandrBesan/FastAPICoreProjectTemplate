@@ -3,12 +3,12 @@ from models.errors.api import BadRequestError, InternalServerError
 
 
 class BadRequestException(BaseHTTPException):
-    code = BadRequestError.getCodeDefault()
+    statusCode = BadRequestError.getStatusCodeDefault()
     message = BadRequestError.getMessageDefault()
     model = BadRequestError
 
 
 class InternalServerException(BaseHTTPException):
-    code = InternalServerError.getCodeDefault()
+    statusCode = InternalServerError.getStatusCodeDefault()
     message = InternalServerError.getMessageDefault()
     model = InternalServerError

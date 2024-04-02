@@ -8,19 +8,19 @@ from typing import Union
 class BaseHTTPException(HTTPException):
     """Base error for custom API any HTTP exceptions"""
     message = "internal server error"
-    code = statuscode.HTTP_500_INTERNAL_SERVER_ERROR
+    statusCode = statuscode.HTTP_500_INTERNAL_SERVER_ERROR
     model = BaseError
-    typeException = "InternalServerException"
+    responseType = "InternalServerException"
 
     def __init__(self, **kwargs):
         kwargs.setdefault("message", self.message)
-        kwargs.setdefault("code", self.code)
-        kwargs.setdefault("typeException", self.typeException)
+        kwargs.setdefault("statusCode", self.statusCode)
+        kwargs.setdefault("responseType", self.responseType)
         self.message = kwargs["message"]
-        self.code = kwargs["code"]
-        self.typeException = kwargs["typeException"]
-        self.status_code = self.code
-        self.data = self.model(message=self.message, code=self.code, typeException=self.typeException)
+        self.statusCode = kwargs["statusCode"]
+        self.responseType = kwargs["responseType"]
+        self.status_code = self.statusCode
+        self.data = self.model(message=self.message, statusCode=self.statusCode, responseType=self.responseType)
 
     def __str__(self):
         return self.message
@@ -29,9 +29,9 @@ class BaseHTTPException(HTTPException):
         self.data.requestId = requestId
         return JSONResponse(
             content=self.data.dict(),
-            status_code=self.code
+            status_code=self.statusCode
         )
 
     @classmethod
     def response_model(cls):
-        return {cls.code: {"model": cls.model}}
+        return {cls.statusCode: {"model": cls.model}}

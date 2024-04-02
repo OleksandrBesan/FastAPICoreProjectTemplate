@@ -16,7 +16,7 @@ async def http_exception_handler(request: Request, exc: BaseHTTPException):
 
 async def validation_exception_handler(request: Request, exc: Exception):
     requestId = getRequestId(request)
-    error_response = BaseError(code=422, message=str(exc), type="ValidationException", requestId=requestId)
+    error_response = BaseError(statusCode=422, message=str(exc), responseType="ValidationException", requestId=requestId)
     return error_response
 
 

@@ -70,7 +70,7 @@ def logtimer(tag="performance"):
             start = timer()
             result = func(*args, **kwargs)
             end = timer()
-            logtext = f"Execution time: {timedelta(seconds=end-start)}"
+            logtext = f"Execution time: {timedelta(seconds=end - start)}"
             decorator_logger.info(logtext)
             return result
 
@@ -86,7 +86,7 @@ def logtimer(tag="performance"):
             start = timer()
             result = await func(*args, **kwargs)
             end = timer()
-            logtext = f"Execution time: {timedelta(seconds=end-start)}"
+            logtext = f"Execution time: {timedelta(seconds=end - start)}"
             decorator_logger.info(logtext)
             return result
 
