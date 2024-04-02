@@ -28,6 +28,5 @@ async def do_something(request: Request,
     """
     route_path = request.url.path
     with logger.contextualize(requestId=requestId, path=route_path):
-        raise InternalServerException()
-        response = SomeResponseModel(result=True)
+        response = SomeResponseModel(result=True, requestId=requestId)
         return response

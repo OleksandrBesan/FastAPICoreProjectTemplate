@@ -1,9 +1,10 @@
-from pydantic import BaseModel, Field
+from pydantic import Field
+from models.responseBase import BaseResponse
 from datetime import datetime
 import uuid
 
 
-class BaseError(BaseModel):
+class BaseError(BaseResponse):
     statusCode: int = Field(default=500, description="HTTP status code")
     responseType: str = Field(default="InternalServerException", description="The type of error")
     message: str = Field(default="Internal Server Error", description="main shor message of exception")

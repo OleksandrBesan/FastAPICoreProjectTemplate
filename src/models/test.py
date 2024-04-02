@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from models.responseBase import BaseResponse
 
 
 class SomeRequestModel(BaseModel):
@@ -9,7 +10,7 @@ class SomeRequestModel(BaseModel):
     id: int
 
 
-class SomeResponseModel(BaseModel):
+class SomeResponseModel(BaseResponse):
     """
     Response model with some result
     """
