@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Request
 from loguru import logger
 
-from models.test import SomeRequestModel, SomeResponseModel
+from api.schemas.test import SomeRequestModel, SomeResponseModel
 from core.settings.app import AppSettings
 from core.config import get_app_settings
 from core.utils.requestId import getRequestId

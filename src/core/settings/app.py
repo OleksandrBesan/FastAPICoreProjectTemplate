@@ -3,6 +3,7 @@ import sys
 from typing import Any, Dict, List, Tuple, NamedTuple
 from loguru import logger
 from pydantic import SecretStr, Field
+from pydantic_settings import SettingsConfigDict
 from core.logging import InterceptHandler
 from core.settings.base import BaseAppSettings
 import os
@@ -22,7 +23,7 @@ class AppSettings(BaseAppSettings):
     redoc_url: str = "/redoc"
     title: str = "TemplateProject API"
     version: str = "2.0.0"
-    secret_key: SecretStr = Field(default_factory=lambda: os.environ['SECRET_KEY'])
+    secret_key: SecretStr = Field(default_factory=lambda: SecretStr(os.environ['SECRET_KEY']))
     api_prefix: str = "/api"
     jwt_token_prefix: str = "Token"
     allowed_hosts: List[str] = ["*"]
@@ -32,9 +33,8 @@ class AppSettings(BaseAppSettings):
     logging_request_headers: List[str] = ["*"]
     logging_request_restrict_routes_with_keys: LoggingRequestRestrictRoutesWithKeys = LoggingRequestRestrictRoutesWithKeys()
     logging_response_filter: List[str] = ["*"]
-
-    class Config:
-        validate_assignment = True
+    token_algorithm: str = "HS256"
+    model_config = SettingsConfigDict(validate_assignment=True)
 
     @property
     def fastapi_kwargs(self) -> Dict[str, Any]:
