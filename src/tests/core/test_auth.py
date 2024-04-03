@@ -1,6 +1,6 @@
 import pytest
 from datetime import timedelta
-from core.security.tokens import createToken, decodeToken  
+from core.security.tokens import createToken, decodeToken
 from core.exceptions.auth import InvalidTokenException, CreationTokenException
 from core.config import get_app_settings, AppEnvTypes
 from pydantic import Field
@@ -9,7 +9,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 setting = get_app_settings()
 
 
-def test_token_creation_and_decoding(monkeypatch):
+def test_token_creation_and_decoding(monkeypatch, capsys):
     test_secret_key = 'test'
     monkeypatch.setenv('SECRET_KEY', test_secret_key)
     subject = "test_user"
@@ -17,6 +17,9 @@ def test_token_creation_and_decoding(monkeypatch):
     token = createToken(subject, expires_delta)
     assert token is not None, "Failed to create token"
     decoded = decodeToken(token)
+    with capsys.disabled():
+        print(f"Token: {token}")
+        print(f"Decoded: {decoded}")
     assert decoded['sub'] == subject, "Token decoding failed: subject mismatch"
 
 
