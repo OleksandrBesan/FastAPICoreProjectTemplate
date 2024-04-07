@@ -16,7 +16,7 @@ class LoggingRoute(APIRoute):
     def get_route_handler(self) -> Callable:
         original_route_handler = super().get_route_handler()
         settings = get_app_settings()
-        header_name_requestId = settings.header_name_requestId
+        header_name_traceId = settings.header_name_traceId
         logging_request_headers = settings.logging_request_headers
         restrictRoutes = settings.logging_request_restrict_routes_with_keys.routes
         filterKeys = settings.logging_request_restrict_routes_with_keys.filter_keys
@@ -39,11 +39,11 @@ class LoggingRoute(APIRoute):
                     route_logger.bind(tag="RequestRaw").info(req_body)
 
         async def log_request(request: Request, route_logger):
-            requestId = request.headers.get(header_name_requestId, None)
+            traceId = request.headers.get(header_name_traceId, None)
             _, path = parse_url(str(request.url))
-            self.requestId = requestId
+            self.traceId = traceId
             self.requestPath = path
-            route_logger = route_logger.bind(requestId=requestId, path=path, tag="RequestHeaders")
+            route_logger = route_logger.bind(traceId=traceId, path=path, tag="RequestHeaders")
             request_headers_json = {key: value for key, value in request.headers.items() if key in logging_request_headers or "*" in logging_request_headers}
             route_logger.info(json.dumps(request_headers_json))
 
@@ -51,7 +51,7 @@ class LoggingRoute(APIRoute):
             await process_request_body(req_body, path, route_logger)
 
         async def log_response(response: Response, route_logger):
-            route_logger = route_logger.bind(requestId=self.requestId, path=self.requestPath, tag="ResponseRaw")
+            route_logger = route_logger.bind(traceId=self.traceId, path=self.requestPath, tag="ResponseRaw")
             buffer = BytesIO()
             if isinstance(response, StreamingResponse):
                 async for item in response.body_iterator:
@@ -78,10 +78,10 @@ class LoggingRoute(APIRoute):
             await log_request(request, route_logger)
 
             try:
-                with LogTimerContext(logger=route_logger.bind(requestId=self.requestId, path=self.requestPath, tag='performanceResponse')):
+                with LogTimerContext(logger=route_logger.bind(traceId=self.traceId, path=self.requestPath, tag='performanceResponse')):
                     response = await original_route_handler(request)
             except BaseHTTPException as exc:
-                response = exc.response(requestId=self.requestId)
+                response = exc.response(traceId=self.traceId)
 
             return await log_response(response, route_logger)
 

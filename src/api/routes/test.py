@@ -4,7 +4,7 @@ from loguru import logger
 from api.schemas.test import SomeRequestModel, SomeResponseModel
 from core.settings.app import AppSettings
 from core.config import get_app_settings
-from core.utils.requestId import getRequestId
+from core.utils.traceId import getTraceId
 from api.routes.logging import LoggingRoute
 from core.exceptions.api import BadRequestException, InternalServerException
 router = APIRouter(
@@ -22,11 +22,11 @@ router = APIRouter(
 async def do_something(request: Request,
                        input_data: SomeRequestModel,
                        settings: AppSettings = Depends(get_app_settings),
-                       requestId: str = Depends(getRequestId)):
+                       traceId: str = Depends(getTraceId)):
     """
        test
     """
     route_path = request.url.path
-    with logger.contextualize(requestId=requestId, path=route_path):
-        response = SomeResponseModel(result=True, requestId=requestId)
+    with logger.contextualize(traceId=traceId, path=route_path):
+        response = SomeResponseModel(result=True, traceId=traceId)
         return response

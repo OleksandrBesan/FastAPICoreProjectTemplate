@@ -54,16 +54,16 @@ def logcontext(**context_vars):
 def logtimer(tag="performance"):
     """
     decorator to log performance of the call func with contextualize
-    Provided requestPath, requestId on the self of the method
+    Provided requestPath, traceId on the self of the method
     (if decorator on the class)
     """
     def decorator(func):
         @functools.wraps(func)
         def sync_wrapper(*args, **kwargs):
-            requestId = getattr(args[0], 'requestId', '')
+            traceId = getattr(args[0], 'traceId', '')
             requestPath = getattr(args[0], 'requestPath', '')
             decorator_logger = logger.bind(
-                requestId=requestId,
+                traceId=traceId,
                 path=requestPath,
                 tag=tag
             )
@@ -76,10 +76,10 @@ def logtimer(tag="performance"):
 
         @functools.wraps(func)
         async def async_wrapper(*args, **kwargs):
-            requestId = getattr(args[0], 'requestId', '')
+            traceId = getattr(args[0], 'traceId', '')
             requestPath = getattr(args[0], 'requestPath', '')
             decorator_logger = logger.bind(
-                requestId=requestId,
+                traceId=traceId,
                 path=requestPath,
                 tag=tag
             )

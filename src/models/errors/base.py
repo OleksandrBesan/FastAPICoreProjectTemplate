@@ -10,7 +10,7 @@ class BaseError(BaseResponse):
     message: str = Field(default="Internal Server Error", description="main shor message of exception")
     timestamp: str = Field(default_factory=lambda: datetime.now(UTC).isoformat(), description="The timestamp when the error occurred")
     isError: bool = Field(default=True, description="Flag indicating this is an error response")
-    requestId: str = Field(default_factory=lambda: str(uuid.uuid4()), description="A unique identifier for this particular instance of the error and request. Default is uuid, but should use requestID from Headers.")
+    traceId: str = Field(default_factory=lambda: str(uuid.uuid4()), description="A unique identifier for this particular instance of the error and request. Default is uuid, but should use traceId from Headers.")
 
     @classmethod
     def getStatusCodeDefault(cls):

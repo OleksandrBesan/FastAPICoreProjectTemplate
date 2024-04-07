@@ -25,8 +25,8 @@ class BaseHTTPException(HTTPException):
     def __str__(self):
         return self.message
 
-    def response(self, requestId: Union[str, None]):
-        self.data.requestId = requestId
+    def response(self, traceId: Union[str, None]):
+        self.data.traceId = traceId
         return JSONResponse(
             content=self.data.dict(),
             status_code=self.statusCode

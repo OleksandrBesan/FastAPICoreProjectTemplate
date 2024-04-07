@@ -22,7 +22,7 @@ def get_application() -> FastAPI:
     application = FastAPI(**settings.fastapi_kwargs)
     application.add_middleware(
         CorrelationIdMiddleware,
-        header_name=settings.header_name_requestId,
+        header_name=settings.header_name_traceId,
         update_request_header=True,
         generator=lambda: uuid4().hex,
         transformer=lambda a: a,
@@ -33,7 +33,7 @@ def get_application() -> FastAPI:
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
-        expose_headers=['X-Request-ID', settings.header_name_requestId]
+        expose_headers=['X-Request-ID', settings.header_name_traceId]
     )
     application.include_router(api_router)
     return application

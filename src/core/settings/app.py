@@ -29,7 +29,7 @@ class AppSettings(BaseAppSettings):
     allowed_hosts: List[str] = ["*"]
     logging_level: int = logging.INFO
     loggers: Tuple[str, str] = ("uvicorn.asgi", "uvicorn.access")
-    header_name_requestId: str = "requestId"
+    header_name_traceId: str = "traceId"
     logging_request_headers: List[str] = ["*"]
     logging_request_restrict_routes_with_keys: LoggingRequestRestrictRoutesWithKeys = LoggingRequestRestrictRoutesWithKeys()
     logging_response_filter: List[str] = ["*"]
@@ -60,6 +60,6 @@ class AppSettings(BaseAppSettings):
             logging_logger = logging.getLogger(logger_name)
             logging_logger.handlers = [InterceptHandler(level=self.logging_level)]
 
-        fmt = "[{time}]|[{extra[tag]}]|[{extra[path]}]|[{extra[requestId]}][{level}]|[{name}:{function}:{line}] - [{message}]"
+        fmt = "[{time}]|[{extra[tag]}]|[{extra[path]}]|[{extra[traceId]}][{level}]|[{name}:{function}:{line}] - [{message}]"
         logger.configure(handlers=[{"sink": sys.stderr, "level": self.logging_level, "format": fmt}],
-                         extra={"requestId": "", "path": "", "tag": ""})
+                         extra={"traceId": "", "path": "", "tag": ""})
