@@ -82,3 +82,5 @@ terraform.rc
 .env
 .env.*
  
+# coverage files
+.coverage
