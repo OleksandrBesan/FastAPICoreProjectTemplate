@@ -1,6 +1,6 @@
 import pytest
 from datetime import timedelta
-from core.security.tokens import createToken, decodeToken
+from core.security.tokens.inner import InnerIssuer
 from core.exceptions.auth import InvalidTokenException, CreationTokenException
 from core.config import get_app_settings, AppEnvTypes
 from pydantic import Field
@@ -14,9 +14,10 @@ def test_token_creation_and_decoding(monkeypatch, capsys):
     monkeypatch.setenv('SECRET_KEY', test_secret_key)
     subject = "test_user"
     expires_delta = timedelta(hours=1)
-    token = createToken(subject, expires_delta)
+    issuer = InnerIssuer()
+    token = issuer.createToken(subject, expires_delta)
     assert token is not None, "Failed to create token"
-    decoded = decodeToken(token)
+    decoded = issuer.decodeToken(token)
     with capsys.disabled():
         print(f"Token: {token}")
         print(f"Decoded: {decoded}")
@@ -31,11 +32,13 @@ class SomeBaseAppSettings(BaseSettings):
 
 def test_token_creation_failure():
     mock_settings = SomeBaseAppSettings()
+    issuer = InnerIssuer(mock_settings)
     with pytest.raises(CreationTokenException):
-        createToken("test_subject", timedelta(hours=1), mock_settings)
+        issuer.createToken("test_subject", timedelta(hours=1))
 
 
 def test_token_decoding_failure():
+    issuer = InnerIssuer()
     invalid_token = "invalid.token.string"
     with pytest.raises(InvalidTokenException):
-        decodeToken(invalid_token)
+        issuer.decodeToken(invalid_token)
