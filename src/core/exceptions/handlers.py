@@ -1,7 +1,7 @@
 from fastapi import Request
 from fastapi.exceptions import RequestValidationError
 from models.errors.base import BaseError
-from src.core.utils.traceId import getTraceId
+from core.utils.traceId import getTraceId
 from typing import List, Tuple, Type, Callable
 from core.exceptions.base import BaseHTTPException
 
