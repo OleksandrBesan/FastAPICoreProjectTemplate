@@ -5,7 +5,7 @@ from api.schemas.test import SomeRequestModel, SomeResponseModel
 from core.settings.app import AppSettings
 from core.config import get_app_settings
 from core.utils.traceId import getTraceId
-from api.routes.logging import LoggingRoute
+from core.utils.logging import LoggingRoute
 from core.exceptions.api import BadRequestException, InternalServerException
 router = APIRouter(
     tags=['test'],
