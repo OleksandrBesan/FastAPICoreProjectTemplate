@@ -1,11 +1,22 @@
-repo: https://github.com/pre-commit/pre-commit-hooks
-rev: v1.0.0   
-hooks:
--   id: trailing-whitespace
--   id: check-json
--   id: check-merge-conflict
--   id: check-toml
--   id: check-yaml
--   id: check-symlinks
--   id: detect-aws-credentials
--   id: detect-private-key
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v1.0.0
+  hooks:
+  -   id: trailing-whitespace
+  -   id: check-json
+  -   id: check-merge-conflict
+  -   id: check-yaml
+  -   id: check-symlinks
+  -   id: detect-aws-credentials
+  -   id: detect-private-key
+
+- repo: https://github.com/pycqa/flake8
+  rev: '7.0.0'
+  hooks:
+  -   id: flake8
+
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: 'v1.9.0'
+  hooks:
+  -   id: mypy
+      args: ['--config-file=mypy.ini', '--install-types','--non-interactive']
