@@ -1,5 +1,5 @@
 from pydantic import Field
-from models.responseBase import BaseResponse
+from schemas.responseBase import BaseResponse
 from datetime import datetime, UTC
 import uuid
 

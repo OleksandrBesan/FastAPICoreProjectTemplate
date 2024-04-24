@@ -1,5 +1,5 @@
 from core.exceptions.base import BaseHTTPException
-from models.errors.auth import InvalidTokenError, CreationTokenError, CreationTokenNotSupportedError, AuthProviderInternalError
+from schemas.errors.auth import InvalidTokenError, CreationTokenError, CreationTokenNotSupportedError, AuthProviderInternalError
 
 
 class InvalidTokenException(BaseHTTPException):

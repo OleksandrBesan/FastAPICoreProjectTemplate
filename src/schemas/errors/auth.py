@@ -1,4 +1,4 @@
-from models.errors.base import BaseError
+from schemas.errors.base import BaseError
 from pydantic import Field
 
 

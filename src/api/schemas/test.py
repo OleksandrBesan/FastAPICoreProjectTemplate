@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from models.responseBase import BaseResponse
+from schemas.responseBase import BaseResponse
 
 
 class SomeRequestModel(BaseModel):

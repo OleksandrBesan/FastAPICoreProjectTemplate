@@ -1,4 +1,4 @@
-from models.responseBase import BaseResponse
+from schemas.responseBase import BaseResponse
 import pytest
 from datetime import datetime, timezone
 

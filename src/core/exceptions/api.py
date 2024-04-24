@@ -1,5 +1,5 @@
 from core.exceptions.base import BaseHTTPException
-from models.errors.api import BadRequestError, InternalServerError
+from schemas.errors.api import BadRequestError, InternalServerError
 
 
 class BadRequestException(BaseHTTPException):
