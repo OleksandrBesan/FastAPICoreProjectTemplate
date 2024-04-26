@@ -8,13 +8,15 @@ from loguru import logger
 from uuid import uuid4
 from asgi_correlation_id import CorrelationIdMiddleware
 from core.exceptions.handlers import errorHandlers
+from core.settings.app import AppSettings
+from dependencies.main import container
 
 
 def get_application() -> FastAPI:
 
     load_dotenv(ENV_PATH)
-
     settings = get_app_settings()
+    container[AppSettings] = settings
 
     settings.configure_logging()
     settings.configure_env()
@@ -40,6 +42,7 @@ def get_application() -> FastAPI:
 
 
 app = get_application()
+app.container = container
 
 for err, handler in errorHandlers:
     app.add_exception_handler(err, handler)
