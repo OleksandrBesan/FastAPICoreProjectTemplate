@@ -1,12 +1,12 @@
-from abc import ABC, abstractmethod, property
-from typing import List, TypeVar, Union
+from abc import ABC, abstractmethod
+from typing import List, TypeVar, Union, Generic
 from uuid import UUID
 
 
 MODEL = TypeVar('MODEL')
 
 
-class BaseRepository(ABC):
+class BaseRepository(ABC, Generic[MODEL]):
 
     @property
     @abstractmethod
@@ -55,7 +55,7 @@ class BaseRepository(ABC):
         pass
 
     @abstractmethod
-    async def query(self, filters: List = None):
+    async def query(self, filters: Union[List, None] = None):
         """
         To retrieve a list of entities, optionally based on some filters.
 
@@ -64,7 +64,7 @@ class BaseRepository(ABC):
         pass
 
     @abstractmethod
-    async def query_paginated(self, page_number: int, page_size: int, filters: List = None):
+    async def query_paginated(self, page_number: int, page_size: int, filters: Union[List, None] = None):
         """
         Retrieves entities in a paginated format.
 
