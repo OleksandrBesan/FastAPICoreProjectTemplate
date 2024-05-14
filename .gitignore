@@ -16,7 +16,7 @@ venv/
 env/
 ENV/
 
-# pickle files 
+# pickle files
 data/
 
 # IDEs and editors
@@ -27,7 +27,7 @@ data/
 *.swp
 *.tmp
 *.temp
- 
+
 # Exclude sensitive files
 .env
 .env.*
@@ -43,14 +43,14 @@ data/
 #
 .DS_Store
 
-# logs files 
+# logs files
 .log
 *.log
 
 
 # poetry
 poetry.lock
- 
+
 
 # Local .terraform directories
 **/.terraform/*
@@ -81,6 +81,6 @@ terraform.rc
 # Ignore any .env or .dotenv files that might contain environment-specific secrets
 .env
 .env.*
- 
+
 # coverage files
 .coverage
