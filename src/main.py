@@ -10,7 +10,8 @@ from asgi_correlation_id import CorrelationIdMiddleware
 from core.exceptions.handlers import errorHandlers
 from core.settings.app import AppSettings
 from dependencies.main import container
-
+from core.utils.lifespans.db import postgresql_lifespan
+from core.utils.lifespans.manager import Lifespans
 
 def get_application() -> FastAPI:
 
@@ -21,7 +22,7 @@ def get_application() -> FastAPI:
     settings.configure_logging()
     settings.configure_env()
     logger.info(settings.app_env)
-    application = FastAPI(**settings.fastapi_kwargs)
+    application = FastAPI(**settings.fastapi_kwargs, lifespan=Lifespans([postgresql_lifespan]))
     application.add_middleware(
         CorrelationIdMiddleware,
         header_name=settings.header_name_traceId,

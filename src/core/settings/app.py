@@ -35,6 +35,9 @@ class AppSettings(BaseAppSettings):
     logging_response_filter: List[str] = ["*"]
     token_algorithm: str = "HS256"
     model_config = SettingsConfigDict(validate_assignment=True)
+    DB_POSTGRESQL_URL_PARAMS:dict = {}
+    DB_POSTGRESQL_MIN_CONNECTION:int = 5
+    DB_POSTGRESQL_MAX_CONNECTION:int = 20
 
     @property
     def fastapi_kwargs(self) -> Dict[str, Any]:
