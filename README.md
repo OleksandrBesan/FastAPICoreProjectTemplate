@@ -41,4 +41,4 @@ Alternatives: scalene, viztracer
 
 [] Authorization and authentification using cognito or local support (postgresql or any other DB)
 
-[] migrate to gunicorn
+[x] migrate to gunicorn
