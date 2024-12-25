@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List, TypeVar, Union, Generic
+from typing import List, TypeVar, Union, Generic, Dict
 from uuid import UUID
 
 
@@ -18,7 +18,7 @@ class BaseRepository(ABC, Generic[MODEL]):
         pass
 
     @abstractmethod
-    async def get(self, id: Union[UUID, int]):
+    async def get(self, id: Union[UUID, int, str], **kwargs):
         """
         To retrieve a single entity based on its identifier (ID).
 
@@ -36,17 +36,19 @@ class BaseRepository(ABC, Generic[MODEL]):
         pass
 
     @abstractmethod
-    async def update(self, id: Union[UUID, int], entity: MODEL):
+    async def update(self, id: Union[UUID, int, str], entity: MODEL, **kwargs):
         """
         To update an existing entity based on its ID.
 
         :param id: identifiers to search by and update
         :param entity: what to update
+        :param kwargs: for diffirent type of storage
+        (NoSQL could require sort key)
         """
         pass
 
     @abstractmethod
-    async def delete(self, id: Union[UUID, int]):
+    async def delete(self, id: Union[UUID, int, str]):
         """
         To delete an entity based on its ID.
 
@@ -64,7 +66,10 @@ class BaseRepository(ABC, Generic[MODEL]):
         pass
 
     @abstractmethod
-    async def query_paginated(self, page_number: int, page_size: int, filters: Union[List, None] = None):
+    async def query_paginated(self,
+                              page_number: int,
+                              page_size: int,
+                              filters: Union[List, None] = None):
         """
         Retrieves entities in a paginated format.
 

@@ -5,11 +5,10 @@ import asyncpg
 from urllib.parse import quote
 from core.settings.app import AppSettings
 from dependencies.main import Provide
-import contextlib
 from collections.abc import AsyncIterator
 
 
-@contextlib.asynccontextmanager
+@asynccontextmanager
 async def postgresql_lifespan(
     app: FastAPI, 
     settings: AppSettings = Provide(AppSettings)

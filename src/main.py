@@ -13,6 +13,7 @@ from dependencies.main import container
 from core.utils.lifespans.db import postgresql_lifespan
 from core.utils.lifespans.manager import Lifespans
 
+
 def get_application() -> FastAPI:
 
     load_dotenv(ENV_PATH)
@@ -21,6 +22,7 @@ def get_application() -> FastAPI:
 
     settings.configure_logging()
     settings.configure_env()
+
     logger.info(settings.app_env)
     application = FastAPI(**settings.fastapi_kwargs, lifespan=Lifespans([postgresql_lifespan]))
     application.add_middleware(

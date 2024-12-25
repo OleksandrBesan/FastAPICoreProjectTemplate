@@ -38,7 +38,8 @@ class AppSettings(BaseAppSettings):
     DB_POSTGRESQL_URL_PARAMS:dict = {}
     DB_POSTGRESQL_MIN_CONNECTION:int = 5
     DB_POSTGRESQL_MAX_CONNECTION:int = 20
-
+    AWS_DEFAULT_REGION:str = "us-west-1"
+    
     @property
     def fastapi_kwargs(self) -> Dict[str, Any]:
         return {
