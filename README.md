@@ -1,27 +1,29 @@
-# Fast API Core Project Template
+
+Fast API Core Project Template
 Core template for different projects to use.
 
-## Technology Stack and Features
+# Tools and Technologies 🚀
 
+- **FastAPI** - Build high-performance APIs with ease. ⚡
+- **Pydantic** - Data validation and settings management made simple. 📋
 
-![Static Badge](https://img.shields.io/badge/-FastAPI-000?style=flat&logo=FastAPI&logoColor=black&color=white) ![Static Badge](https://img.shields.io/badge/-Pydantic-000?style=flat&logo=Pydantic&logoColor=black&color=white)
+- **Docker** - Containerization for seamless deployment. 🐳
 
-![Static Badge](https://img.shields.io/badge/-Docker-000?style=flat&logo=Docker&logoColor=black&color=white)
+- **dotenv** - Manage environment variables effortlessly. 🌱
 
+- **flake8** - Linting for Python code quality. 🧐
+- **mypy** - Static type checking for Python. ✅
+- **Poetry** - Python package management reimagined. 🎵# Tools and Technologies 🚀
 
-![Static Badge](https://img.shields.io/badge/-dotenv-000?style=flat&logo=dotenv&logoColor=black&color=white)
+# TO DO 
 
-![Static Badge](https://img.shields.io/badge/-flake8-000?style=flat&logo=flake8&logoColor=black&color=white)
-![Static Badge](https://img.shields.io/badge/-mypy-000?style=flat&logo=mypy&logoColor=black&color=white)
-![Static Badge](https://img.shields.io/badge/-poetry-000?style=flat&logo=poetry&logoColor=black&color=white)
-
-
-
-
-
-
-
-
-
-
-
+[] Profiling tools within docker-compose with dashboards. 
+Idea to try Pyroscope with Graphana UI 
+Alternatives: scalene, viztracer
+[] Test coverage 
+[] CI/CD github actions
+[] DB repository for PynamoDB
+[] DB repository for Postgresql asynpg support and Sqlalchemy
+[] terraform for deploying infra to AWS lambda
+[] dynamoconf as config manager
+[] migration to make from zshrc aliases
