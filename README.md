@@ -25,7 +25,7 @@ Alternatives: scalene, viztracer
 
 [] CI/CD github actions
 
-[] DB repository for PynamoDB
+[] DB repository for PynamoDB (to test need to add local dynamoDB)
 
 [] DB repository for Postgresql asynpg support and Sqlalchemy
 
@@ -33,4 +33,12 @@ Alternatives: scalene, viztracer
 
 [] dynamoconf as config manager
 
-[x] migration to make from zshrc aliases
+[] Websockets deploy withing lambda use + Gateway  ?
+
+[] Template generator
+
+[] Base class for services
+
+[] Authorization and authentification using cognito or local support (postgresql or any other DB)
+
+[] migrate to gunicorn
